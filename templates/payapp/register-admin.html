@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Transfer Money
+{% endblock %}
+
+{% block content %}
+    {% include 'payapp/navbar.html' %}
+    <div class="container py-5">
+        <h1>Register New Admin</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ register_form|crispy }}
+            <button type="submit" value="Register">Submit</button>
+        </form>
+
+        {% if error_message %}
+            <p>{{ error_message }}</p>
+        {% endif %}
+    </div>
+{% endblock %}

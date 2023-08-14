@@ -1,0 +1,38 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PayApp</a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/webapps2023/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/webapps2023/transfer">Transfer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/webapps2023/request">Request</a>
+                </li>
+
+                {{% if user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/webapps2023/all-users">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/webapps2023/admin-transactions">Transactions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/webapps2023/register-admin">Admins</a>
+                    </li>
+                {% endif %} }
+                {{ end }}
+
+            </ul>
+            <ul class="navbar-nav ms-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="/webapps2023/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

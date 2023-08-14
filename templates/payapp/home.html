@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% include 'payapp/navbar.html' %}
+    <section class="h-100">
+        <div class="container-fluid px-5 py-3 h-100" style="background-color: #eee">
+            <div class="row h-100">
+                <div class="col-xl  pb-4">
+                    <div class="row card shadow mb-3 h-25 justify-content-center">
+                        <h1 class="text-center p-5">Hello, {{ request.user.username }}. <br><br> Your current balance is: {{ balance }}</h1>
+                    </div>
+                    <div class="row card shadow h-50">
+                        <h1 class="p-3">Requests</h1>
+                        <ul class="list-group list-group-flush overflow-auto">
+                            {% if requests %}
+                                {% for request in requests %}
+                                    <li class="list-group-item">
+                                        <div class="row px-3">
+                                            <div class="col">
+                                                {{ request.origin_user.username }}
+                                            </div>
+                                            <div class="col text-center">
+                                                {{ request.value }}
+                                            </div>
+                                            <div class="col text-center">
+                                                <form method="post" action="/webapps2023/response/">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="action" value="accept">
+                                                    <input type="hidden" name="id" value="{{ request.id }}">
+                                                    <button type="submit" class="btn btn-outline-dark">Accept</button>
+                                                </form>
+                                            </div>
+                                            <div class="col text-center">
+                                                <form method="post" action="/webapps2023/response/">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="action" value="decline">
+                                                    <input type="hidden" name="id" value="{{ request.id }}">
+                                                    <button type="submit" class="btn btn-outline-dark">Decline</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="list-group-item">
+                                    <div class="row px-3">
+                                        <div class="col">
+                                            No Requests Found.
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl h-100 pb-1">
+                    <div class="card h-75 shadow">
+                        <h1 class="p-3">Transactions History</h1>
+                        <ul class="list-group list-group-flush overflow-auto">
+                            {% if transactions %}
+                                    {% for transaction in transactions %}
+                                        {% if request.user.username == transaction.origin_account %}
+                                            <li class="list-group-item">
+                                                <div class="row px-3">
+                                                    <div class="col">
+                                                        {{ transaction.destination_account }}
+                                                    </div>
+                                                    <div class="col text-end text-danger">
+                                                        -{{ transaction.value }}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% else %}
+                                            <li class="list-group-item">
+                                                <div class="row px-3">
+                                                    <div class="col">
+                                                        {{ transaction.origin_account }}
+                                                    </div>
+                                                    <div class="col text-end text-success">
+                                                        +{{ transaction.value }}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                            {% else %}
+                                <li class="list-group-item">
+                                    <div class="row px-3">
+                                        <div class="col">
+                                            No Transactions Found.
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

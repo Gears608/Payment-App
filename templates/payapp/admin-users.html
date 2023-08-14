@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Transfer Money
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% include 'payapp/navbar.html' %}
+    <div class="container">
+        <div class="col-xl h-100 pb-1">
+            <div class="card h-75 shadow my-5">
+                <h1 class="p-3">All Users</h1>
+                <ul class="list-group list-group-flush overflow-auto">
+                    {% if users %}
+                        <li class="list-group-item">
+                            <div class="row px-3">
+                                <div class="col">
+                                    <h5>Username</h5>
+                                </div>
+                                <div class="col text-center">
+                                    <h5>First Name</h5>
+                                </div>
+                                <div class="col text-center">
+                                    <h5>Last Name</h5>
+                                </div>
+                                <div class="col text-center">
+                                    <h5>Email</h5>
+                                </div>
+                                <div class="col text-end">
+                                    <h5>Money</h5>
+                                </div>
+                            </div>
+                        </li>
+                        {% for user in users %}
+                            <li class="list-group-item">
+                                <div class="row px-3">
+                                    <div class="col">
+                                        {{ user.user.username }}
+                                    </div>
+                                    <div class="col text-center">
+                                        {{ user.user.first_name }}
+                                    </div>
+                                    <div class="col text-center">
+                                        {{ user.user.last_name }}
+                                    </div>
+                                    <div class="col text-center">
+                                        {{ user.user.email }}
+                                    </div>
+                                    <div class="col text-end">
+                                        {{ user.value }}
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item">
+                            <div class="row px-3">
+                                <div class="col">
+                                    No Users Found.
+                                </div>
+                            </div>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

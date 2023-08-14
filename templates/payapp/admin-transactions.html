@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Transfer Money
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% include 'payapp/navbar.html' %}
+    <div class="container">
+        <div class="col-xl h-100 pb-1">
+            <div class="card h-75 shadow my-5">
+                <h1 class="p-3">All User Transactions</h1>
+                <ul class="list-group list-group-flush overflow-auto">
+                    {% if transactions %}
+                        <li class="list-group-item">
+                            <div class="row px-3">
+                                <div class="col">
+                                    <h5>Origin Account</h5>
+                                </div>
+                                <div class="col text-center">
+                                    <h5>Destination Account</h5>
+                                </div>
+                                <div class="col text-end">
+                                    <h5>Amount</h5>
+                                </div>
+                            </div>
+                        </li>
+                        {% for transaction in transactions %}
+                            <li class="list-group-item">
+                                <div class="row px-3">
+                                    <div class="col">
+                                        {{ transaction.origin_account }}
+                                    </div>
+                                    <div class="col text-center">
+                                        {{ transaction.destination_account }}
+                                    </div>
+                                    <div class="col text-end">
+                                        £{{ transaction.value }}
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item">
+                            <div class="row px-3">
+                                <div class="col">
+                                    No Transactions Found.
+                                </div>
+                            </div>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

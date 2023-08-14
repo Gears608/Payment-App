@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Transfer Money
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% include 'payapp/navbar.html' %}
+    <div class="d-flex justify-content-center p-5">
+
+        <h1> Your current balance is: {{ balance }} </h1>
+    </div>
+    <div class="container">
+        <h4>Transfer Money</h4>
+        <form method="post" class="form-group">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success">Transfer</button>
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
